@@ -1,6 +1,20 @@
 const mongoose = require('mongoose')
+const likesSchema = require('./likes')
 
 const userSchema = new mongoose.Schema({
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: {
+    type: String,
+    required: true
+  },
+  zipcode: {
+    type: Number,
+    require: true,
+    min: 5
+  },
   email: {
     type: String,
     required: true,
@@ -10,6 +24,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  likes: [likesSchema],
   token: String
 }, {
   timestamps: true,
