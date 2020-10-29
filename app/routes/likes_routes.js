@@ -64,14 +64,20 @@ router.get('/likes/:id', requireToken, (req, res, next) => {
 // POST /examples
 router.post('/likes', requireToken, (req, res, next) => {
   // set owner of new example to be current user
-  // req.body.likes.owner = req.user.id
-  const likeData = req.body.likes
-  const ownerId = likeData.owner
+  console.log(req)
+  req.body.owner = req.user.id
+  const likeData = req.body
+  const ownerId = req.body.owner
+  console.log(likeData)
 
   User.findById(ownerId)
     .then(handle404)
     .then(user => {
-      user.likes.push(likeData)
+      user.likes.push({
+        name: likeData.likes.name,
+        isLiked: likeData.likes.isLiked,
+        owner: ownerId
+      })
       return user.save()
     })
     .then(user => res.status(201).json({ user }))
