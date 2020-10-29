@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const likesSchema = require('./likes')
-const pictureSchema = require('./pictures')
 
 const userSchema = new mongoose.Schema({
   firstName: {
@@ -29,7 +28,6 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   likes: [likesSchema],
-  pictures: [pictureSchema],
   token: String
 }, {
   timestamps: true,
