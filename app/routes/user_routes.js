@@ -48,6 +48,7 @@ router.post('/sign-up', (req, res, next) => {
         firstName: req.body.credentials.firstName,
         lastName: req.body.credentials.lastName,
         zipcode: req.body.credentials.zipcode,
+        gender: req.body.credentials.gender,
         email: req.body.credentials.email,
         hashedPassword: hash
       }
