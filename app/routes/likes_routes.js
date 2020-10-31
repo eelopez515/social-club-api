@@ -120,7 +120,7 @@ router.delete('/likes/:id', requireToken, (req, res, next) => {
       return user.save()
     })
     // send back 204 and no content if the deletion succeeded
-    .then(() => res.sendStatus(204))
+    .then(user => res.status(200).json({ user }))
     // if an error occurs, pass it to the handler
     .catch(next)
 })
