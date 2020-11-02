@@ -37,6 +37,6 @@ Social Club is an app where you can match with people to get to know, sort of li
 ---
 ### LINKS
 * [API SITE] ('https://fierce-taiga-83651.herokuapp.com/')
-* [CLIENT SITE] ()
+* [CLIENT SITE] ('https://eelopez515.github.io/social-club-client/')
 * [API REPO] ('https://github.com/eelopez515/social-club-api')
 * [CLIENT REPO] ('https://github.com/eelopez515/social-club-client')
