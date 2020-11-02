@@ -44,22 +44,6 @@ router.get('/likes', requireToken, (req, res, next) => {
     .catch(next)
 })
 
-// SHOW
-// GET /examples/5a7db6c74d55bc51bdf39793
-router.get('/likes/:id', requireToken, (req, res, next) => {
-  // req.params.id will be set based on the `:id` in the route
-  console.log('likeId is ', req.params.id)
-  const likeId = req.params.id
-  const targetId = req.user.likes._id[0]
-  console.log('user likes is ', req.user.likes._id[likeId])
-  User.findById(targetId)
-    .then(handle404)
-    // if `findById` is succesful, respond with 200 and "example" JSON
-    .then(like => res.status(200).json({ like: like.toObject() }))
-    // if an error occurs, pass it to the handler
-    .catch(next)
-})
-
 // CREATE
 // POST /examples
 router.post('/likes', requireToken, (req, res, next) => {
@@ -75,6 +59,10 @@ router.post('/likes', requireToken, (req, res, next) => {
     .then(user => {
       user.likes.push({
         name: likeData.likes.name,
+        bio: likeData.likes.bio,
+        image: likeData.likes.image,
+        zipcode: likeData.likes.zipcode,
+        gender: likeData.likes.gender,
         isLiked: likeData.likes.isLiked,
         owner: ownerId
       })
@@ -83,30 +71,6 @@ router.post('/likes', requireToken, (req, res, next) => {
     .then(user => res.status(201).json({ user }))
     .catch(next)
 })
-
-// UPDATE
-// PATCH /examples/5a7db6c74d55bc51bdf39793
-router.patch('/likes/:id', requireToken, removeBlanks, (req, res, next) => {
-  // if the client attempts to change the `owner` property by including a new
-  // owner, prevent that by deleting that key/value pair
-  delete req.body.likes.owner
-
-  User.findById(req.params.id)
-    .then(handle404)
-    .then(like => {
-      // pass the `req` object and the Mongoose record to `requireOwnership`
-      // it will throw an error if the current user isn't the owner
-      requireOwnership(req, like)
-
-      // pass the result of Mongoose's `.update` to the next `.then`
-      return like.updateOne(req.body.example)
-    })
-    // if that succeeded, return 204 and no JSON
-    .then(() => res.sendStatus(204))
-    // if an error occurs, pass it to the handler
-    .catch(next)
-})
-
 // DESTROY
 // DELETE /examples/5a7db6c74d55bc51bdf39793
 router.delete('/likes/:id', requireToken, (req, res, next) => {

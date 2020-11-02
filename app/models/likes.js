@@ -5,6 +5,18 @@ const likesSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  bio: {
+    type: String
+  },
+  image: {
+    type: String
+  },
+  zipcode: {
+    type: Number
+  },
+  gender: {
+    type: String
+  },
   isLiked: {
     type: Boolean,
     required: true
